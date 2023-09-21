@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      class Grading {
+        constructor(name, math, eng, kis, sci, sos) {
+          this.name = name;
+          this.math = math;
+          this.eng = eng;
+          this.kis = kis;
+          this.sci = sci;
+          this.sos = sos;
+          this.subject = {};
+          this.performance = {};
+          this.findTotalMarks();
+          this.findAvgMarks();
+          this.findGrade();
+          this.insertResults();
+        }
+
+        findTotalMarks() {
+          this.total = this.math + this.eng + this.kis + this.sci + this.sos;
+        }
+
+        findAvgMarks() {
+          this.avgMarks = this.total / 5;
+        }
+
+        findGrade() {
+          if (this.avgMarks > 79) {
+            this.grade = "A";
+          } else if (this.avgMarks >= 60 && this.avgMarks <= 79) {
+            this.grade = "B";
+          } else if (this.avgMarks > 49 && this.avgMarks <= 59) {
+            this.grade = "C";
+          } else if (this.avgMarks >= 40 && this.avgMarks <= 49) {
+            this.grade = "D";
+          } else {
+            this.grade = "E";
+          }
+        }
+
+        insertResults() {
+          this.subject.name = this.name;
+          this.subject.maths = this.math;
+          this.subject.english = this.eng;
+          this.subject.kiswahili = this.kis;
+          this.subject.science = this.sci;
+          this.subject["social-studies"] = this.sos;
+
+          this.performance.name = this.name;
+          this.performance.total = this.total;
+          this.performance.average_mks = this.avgMarks;
+          this.performance.grade = this.grade;
+        }
+      }
+
+      const results = [];
+      const performanceOut = [];
+      const subjectOut = [];
+
+      const numberOfStudents = parseInt(prompt("Enter no of students:"));
+
+      for (let i = 1; i <= numberOfStudents; i++) {
+        const name = prompt("Enter name:");
+        const math = parseInt(prompt("Mathematics:"));
+        const eng = parseInt(prompt("English:"));
+        const kis = parseInt(prompt("Kiswahili:"));
+        const sci = parseInt(prompt("Science:"));
+        const sos = parseInt(prompt("Social Studies:"));
+
+        const inputs = [name, math, eng, kis, sci, sos];
+        results.push(inputs);
+      }
+
+      for (const result of results) {
+        const s = new Grading(...result);
+        subjectOut.push(s.subject);
+        performanceOut.push(s.performance);
+      }
+
+      console.log(subjectOut);
+      console.log(performanceOut);
+    </script>
+  </body>
+</html>
